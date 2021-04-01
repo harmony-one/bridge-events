@@ -66,3 +66,26 @@ dataSources:
         - event: Returned(indexed address,uint256)
           handler: handleReturnedDeposit
       file: ./src/deposit.ts
+  - kind: ethereum/contract
+    name: BUSDHmyManager
+    network: mainnet
+    source:
+      address: "0x05d11b7082d5634e0318d818a2f0cd381b371ea5"
+      abi: BUSDHmyManager
+      startBlock: 5336375
+    mapping:
+      kind: ethereum/events
+      apiVersion: 0.0.4
+      language: wasm/assemblyscript
+      entities:
+        - MintedEvent
+        - BurnedEvent
+      abis:
+        - name: BUSDHmyManager
+          file: ./abis/BUSDHmyManager.json
+      eventHandlers:
+        - event: Burned(indexed address,indexed address,uint256,address)
+          handler: handleBurn
+        - event: Minted(address,uint256,address,bytes32)
+          handler: handleMint
+      file: ./src/harmony.ts
