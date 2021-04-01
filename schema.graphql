@@ -1,5 +1,18 @@
+type Transaction @entity {
+  id: ID!
+  hash: Bytes!
+  index: BigInt!
+  from: Bytes!
+  to: Bytes
+  value: BigInt!
+  gasUsed: BigInt!
+  gasPrice: BigInt!
+  input: Bytes!
+}
+
 ### MULTI SIG WALLET ####
 type ConfirmationEvent @entity {
+  transaction: Transaction
   eventName: String!
   id: ID!
   sender: Bytes!
@@ -7,6 +20,7 @@ type ConfirmationEvent @entity {
 }
 
 type DepositEvent @entity {
+  transaction: Transaction
   eventName: String!
   id: ID!
   sender: Bytes!
@@ -14,6 +28,7 @@ type DepositEvent @entity {
 }
 
 type RevocationEvent @entity {
+  transaction: Transaction
   eventName: String!
   id: ID!
   sender: Bytes!
@@ -21,36 +36,42 @@ type RevocationEvent @entity {
 }
 
 type ExecutionEvent @entity {
+  transaction: Transaction
   eventName: String!
   id: ID!
   transactionId: BigInt!
 }
 
 type ExecutionFailureEvent @entity {
+  transaction: Transaction
   eventName: String!
   id: ID!
   transactionId: BigInt!
 }
 
 type OwnerAdditionEvent @entity {
+  transaction: Transaction
   eventName: String!
   id: ID!
   owner: Bytes!
 }
 
 type OwnerRemovalEvent @entity {
+  transaction: Transaction
   eventName: String!
   id: ID!
   owner: Bytes!
 }
 
 type RequirementChangeEvent @entity {
+  transaction: Transaction
   eventName: String!
   id: ID!
   required: BigInt!
 }
 
 type SubmissionEvent @entity {
+  transaction: Transaction
   eventName: String!
   id: ID!
   transactionId: BigInt!
@@ -81,4 +102,23 @@ type BurnedEvent @entity {
   sender: Bytes!
   amount: BigInt!
   recipient: Bytes!
+}
+
+#### Ethereum ####
+type LockedEvent @entity {
+  eventName: String!
+  id: ID!
+  token: Bytes!
+  sender: Bytes!
+  amount: BigInt!
+  recipient: Bytes!
+}
+
+type UnlockedEvent @entity {
+  eventName: String!
+  id: ID!
+  amount: BigInt!
+  ethToken: Bytes!
+  recipient: Bytes!
+  receiptId: Bytes!
 }
