@@ -6,9 +6,9 @@ dataSources:
     name: MultiSigWallet
     network: mainnet
     source:
-      address: "0x0c1310bbd93c6977fde20dc813cff8236ba1f0dd"
+      address: "{{multiSig}}"
       abi: MultiSigWallet
-      startBlock: 5336368
+      startBlock: {{multiSigStartBlock}}
     mapping:
       kind: ethereum/events
       apiVersion: 0.0.4
@@ -46,13 +46,14 @@ dataSources:
         - event: Submission(indexed uint256)
           handler: handleSubmission
       file: ./src/multisig.ts
+  {{#isHarmony}}
   - kind: ethereum/contract
     name: Deposit
     network: mainnet
     source:
-      address: "0x8139d578f11638c78e16685eb2804c2a34482e41"
+      address: "{{deposit}}"
       abi: Deposit
-      startBlock: 8967465
+      startBlock: {{depositStartBlock}}
     mapping:
       kind: ethereum/events
       apiVersion: 0.0.4
@@ -70,9 +71,9 @@ dataSources:
     name: BUSDHmyManager
     network: mainnet
     source:
-      address: "0x05d11b7082d5634e0318d818a2f0cd381b371ea5"
+      address: "{{busdManager}}"
       abi: BUSDHmyManager
-      startBlock: 5336375
+      startBlock: {{busdStartBlock}}
     mapping:
       kind: ethereum/events
       apiVersion: 0.0.4
@@ -93,9 +94,9 @@ dataSources:
     name: ERC20HmyManager
     network: mainnet
     source:
-      address: "0x2fbbcef71544c461edfc311f42e3583d5f9675d1"
+      address: "{{erc20Manager}}"
       abi: ERC20HmyManager
-      startBlock: 5336385
+      startBlock: {{erc20StartBlock}}
     mapping:
       kind: ethereum/events
       apiVersion: 0.0.4
@@ -116,9 +117,9 @@ dataSources:
     name: ERC721HmyManager
     network: mainnet
     source:
-      address: "0x39ec213272dda1f46424726bb20d82c3861568c0"
+      address: "{{erc721Manager}}"
       abi: ERC721HmyManager
-      startBlock: 7926895
+      startBlock: {{erc721StartBlock}}
     mapping:
       kind: ethereum/events
       apiVersion: 0.0.4
@@ -135,3 +136,75 @@ dataSources:
         - event: Minted(address,uint256,address,bytes32)
           handler: handleMint
       file: ./src/harmony.ts
+  {{/isHarmony}}
+  {{^isHarmony}}
+  - kind: ethereum/contract
+    name: BUSDEthManager
+    network: mainnet
+    source:
+      address: "{{busdManager}}"
+      abi: BUSDEthManager
+      startBlock: {{busdStartBlock}}
+    mapping:
+      kind: ethereum/events
+      apiVersion: 0.0.4
+      language: wasm/assemblyscript
+      entities:
+        - MintedEvent
+        - BurnedEvent
+      abis:
+        - name: BUSDEthManager
+          file: ./abis/BUSDEthManager.json
+      eventHandlers:
+        - event: Locked(indexed address,indexed address,uint256,address)
+          handler: handleLock
+        - event: Unlocked(indexed address,uint256,address,bytes32)
+          handler: handleUnlock
+      file: ./src/ethereum.ts
+  - kind: ethereum/contract
+    name: ERC20EthManager
+    network: mainnet
+    source:
+      address: "{{erc20Manager}}"
+      abi: ERC20EthManager
+      startBlock: {{erc20StartBlock}}
+    mapping:
+      kind: ethereum/events
+      apiVersion: 0.0.4
+      language: wasm/assemblyscript
+      entities:
+        - MintedEvent
+        - BurnedEvent
+      abis:
+        - name: ERC20EthManager
+          file: ./abis/ERC20EthManager.json
+      eventHandlers:
+        - event: Locked(indexed address,indexed address,uint256,address)
+          handler: handleLock
+        - event: Unlocked(indexed address,uint256,address,bytes32)
+          handler: handleUnlock
+      file: ./src/ethereum.ts
+  - kind: ethereum/contract
+    name: ERC721HmyManager
+    network: mainnet
+    source:
+      address: "{{erc721Manager}}"
+      abi: ERC721HmyManager
+      startBlock: {{erc721StartBlock}}
+    mapping:
+      kind: ethereum/events
+      apiVersion: 0.0.4
+      language: wasm/assemblyscript
+      entities:
+        - MintedEvent
+        - BurnedEvent
+      abis:
+        - name: ERC721HmyManager
+          file: ./abis/ERC721HmyManager.json
+      eventHandlers:
+        - event: Locked(indexed address,indexed address,uint256,address)
+          handler: handleLock
+        - event: Unlocked(indexed address,uint256,address,bytes32)
+          handler: handleUnlock
+      file: ./src/ethereum.ts
+  {{/isHarmony}}

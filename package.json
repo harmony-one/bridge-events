@@ -4,6 +4,8 @@
   "scripts": {
     "codegen": "graph codegen",
     "build": "graph build",
+    "prepare:eth": "mustache config/ethereum.json subgraph.template.yaml > subgraph.yaml",
+    "prepare:hmy": "mustache config/harmony.json subgraph.template.yaml > subgraph.yaml",
     "deploy": "graph deploy --node https://api.thegraph.com/deploy/ --ipfs https://api.thegraph.com/ipfs/ sunguru98/bridge-events",
     "create-local": "graph create --node http://localhost:8020/ sunguru98/bridge-events",
     "remove-local": "graph remove --node http://localhost:8020/ sunguru98/bridge-events",
@@ -11,6 +13,7 @@
   },
   "dependencies": {
     "@graphprotocol/graph-cli": "0.20.0",
-    "@graphprotocol/graph-ts": "0.20.0"
+    "@graphprotocol/graph-ts": "0.20.0",
+    "mustache": "^4.2.0"
   }
 }

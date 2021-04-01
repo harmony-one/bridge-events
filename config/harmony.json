@@ -1,0 +1,13 @@
+{
+  "isHarmony": true,
+  "multiSig": "0x0c1310bbd93c6977fde20dc813cff8236ba1f0dd",
+  "multiSigStartBlock": 5336368,
+  "erc721Manager": "0x39ec213272dda1f46424726bb20d82c3861568c0",
+  "erc721StartBlock": 7926895,
+  "erc20Manager": "0x2fbbcef71544c461edfc311f42e3583d5f9675d1",
+  "erc20StartBlock": 5336385,
+  "busdManager": "0x05d11b7082d5634e0318d818a2f0cd381b371ea5",
+  "busdStartBlock": 5336375,
+  "deposit": "0x8139d578f11638c78e16685eb2804c2a34482e41",
+  "depositStartBlock": 8967465
+}
