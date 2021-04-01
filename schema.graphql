@@ -1,54 +1,64 @@
 ### MULTI SIG WALLET ####
 type ConfirmationEvent @entity {
+  eventName: String!
   id: ID!
   sender: Bytes!
   transactionId: BigInt!
 }
 
 type DepositEvent @entity {
+  eventName: String!
   id: ID!
   sender: Bytes!
   value: BigInt!
 }
 
 type RevocationEvent @entity {
+  eventName: String!
   id: ID!
   sender: Bytes!
   transactionId: BigInt!
 }
 
 type ExecutionEvent @entity {
+  eventName: String!
   id: ID!
   transactionId: BigInt!
 }
 
 type ExecutionFailureEvent @entity {
+  eventName: String!
   id: ID!
   transactionId: BigInt!
 }
 
 type OwnerAdditionEvent @entity {
+  eventName: String!
   id: ID!
   owner: Bytes!
 }
 
 type OwnerRemovalEvent @entity {
+  eventName: String!
   id: ID!
   owner: Bytes!
 }
 
 type RequirementChangeEvent @entity {
+  eventName: String!
   id: ID!
   required: BigInt!
 }
 
 type SubmissionEvent @entity {
+  eventName: String!
   id: ID!
   transactionId: BigInt!
 }
 
 #### DEPOSIT ######
 type ReturnedEvent @entity {
+  eventName: String!
   id: ID!
   recipient: Bytes!
   amount: BigInt!
@@ -56,6 +66,7 @@ type ReturnedEvent @entity {
 
 #### Harmony ####
 type MintedEvent @entity {
+  eventName: String!
   id: ID!
   amount: BigInt!
   oneToken: Bytes!
@@ -64,6 +75,7 @@ type MintedEvent @entity {
 }
 
 type BurnedEvent @entity {
+  eventName: String!
   id: ID!
   token: Bytes!
   sender: Bytes!

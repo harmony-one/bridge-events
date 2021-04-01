@@ -27,6 +27,7 @@ export function handleConfirmation(event: Confirmation): void {
   let confirmEvent = new ConfirmationEvent(id);
   confirmEvent.sender = event.params.sender;
   confirmEvent.transactionId = event.params.transactionId;
+  confirmEvent.eventName = "Confirmation";
   confirmEvent.save();
 }
 
@@ -35,6 +36,7 @@ export function handleDeposit(event: Deposit): void {
   let depEvent = new DepositEvent(id);
   depEvent.sender = event.params.sender;
   depEvent.value = event.params.value;
+  depEvent.eventName = "Deposit";
   depEvent.save();
 }
 
@@ -42,6 +44,7 @@ export function handleExecution(event: Execution): void {
   let id = event.transaction.from.toHex();
   let execEvent = new ExecutionEvent(id);
   execEvent.transactionId = event.params.transactionId;
+  execEvent.eventName = "Execution";
   execEvent.save();
 }
 
@@ -49,6 +52,7 @@ export function handleExecutionFailure(event: ExecutionFailure): void {
   let id = event.transaction.from.toHex();
   let execFailEvent = new ExecutionFailureEvent(id);
   execFailEvent.transactionId = event.params.transactionId;
+  execFailEvent.eventName = "ExecutionFailure";
   execFailEvent.save();
 }
 
@@ -56,6 +60,7 @@ export function handleOwnerAddition(event: OwnerAddition): void {
   let id = event.transaction.from.toHex();
   let ownEvent = new OwnerAdditionEvent(id);
   ownEvent.owner = event.params.owner;
+  ownEvent.eventName = "OwnerAddition";
   ownEvent.save();
 }
 
@@ -63,6 +68,7 @@ export function handleOwnerRemoval(event: OwnerRemoval): void {
   let id = event.transaction.from.toHex();
   let ownRemEvent = new OwnerRemovalEvent(id);
   ownRemEvent.owner = event.params.owner;
+  ownRemEvent.eventName = "OwnerRemoval";
   ownRemEvent.save();
 }
 
@@ -70,6 +76,7 @@ export function handleRequirementChange(event: RequirementChange): void {
   let id = event.transaction.from.toHex();
   let reqChangeEvent = new RequirementChangeEvent(id);
   reqChangeEvent.required = event.params.required;
+  reqChangeEvent.eventName = "RequirementChange";
   reqChangeEvent.save();
 }
 
@@ -78,6 +85,7 @@ export function handleRevocation(event: Revocation): void {
   let revocEvent = new RevocationEvent(id);
   revocEvent.sender = event.params.sender;
   revocEvent.transactionId = event.params.transactionId;
+  revocEvent.eventName = "Revocation";
   revocEvent.save();
 }
 
@@ -85,5 +93,6 @@ export function handleSubmission(event: Submission): void {
   let id = event.transaction.from.toHex();
   let submiEvent = new SubmissionEvent(id);
   submiEvent.transactionId = event.params.transactionId;
+  submiEvent.eventName = "Submission";
   submiEvent.save();
 }

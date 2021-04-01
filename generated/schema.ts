@@ -33,6 +33,15 @@ export class ConfirmationEvent extends Entity {
     return store.get("ConfirmationEvent", id) as ConfirmationEvent | null;
   }
 
+  get eventName(): string {
+    let value = this.get("eventName");
+    return value.toString();
+  }
+
+  set eventName(value: string) {
+    this.set("eventName", Value.fromString(value));
+  }
+
   get id(): string {
     let value = this.get("id");
     return value.toString();
@@ -80,6 +89,15 @@ export class DepositEvent extends Entity {
 
   static load(id: string): DepositEvent | null {
     return store.get("DepositEvent", id) as DepositEvent | null;
+  }
+
+  get eventName(): string {
+    let value = this.get("eventName");
+    return value.toString();
+  }
+
+  set eventName(value: string) {
+    this.set("eventName", Value.fromString(value));
   }
 
   get id(): string {
@@ -131,6 +149,15 @@ export class RevocationEvent extends Entity {
     return store.get("RevocationEvent", id) as RevocationEvent | null;
   }
 
+  get eventName(): string {
+    let value = this.get("eventName");
+    return value.toString();
+  }
+
+  set eventName(value: string) {
+    this.set("eventName", Value.fromString(value));
+  }
+
   get id(): string {
     let value = this.get("id");
     return value.toString();
@@ -180,6 +207,15 @@ export class ExecutionEvent extends Entity {
     return store.get("ExecutionEvent", id) as ExecutionEvent | null;
   }
 
+  get eventName(): string {
+    let value = this.get("eventName");
+    return value.toString();
+  }
+
+  set eventName(value: string) {
+    this.set("eventName", Value.fromString(value));
+  }
+
   get id(): string {
     let value = this.get("id");
     return value.toString();
@@ -226,6 +262,15 @@ export class ExecutionFailureEvent extends Entity {
     ) as ExecutionFailureEvent | null;
   }
 
+  get eventName(): string {
+    let value = this.get("eventName");
+    return value.toString();
+  }
+
+  set eventName(value: string) {
+    this.set("eventName", Value.fromString(value));
+  }
+
   get id(): string {
     let value = this.get("id");
     return value.toString();
@@ -266,6 +311,15 @@ export class OwnerAdditionEvent extends Entity {
     return store.get("OwnerAdditionEvent", id) as OwnerAdditionEvent | null;
   }
 
+  get eventName(): string {
+    let value = this.get("eventName");
+    return value.toString();
+  }
+
+  set eventName(value: string) {
+    this.set("eventName", Value.fromString(value));
+  }
+
   get id(): string {
     let value = this.get("id");
     return value.toString();
@@ -304,6 +358,15 @@ export class OwnerRemovalEvent extends Entity {
 
   static load(id: string): OwnerRemovalEvent | null {
     return store.get("OwnerRemovalEvent", id) as OwnerRemovalEvent | null;
+  }
+
+  get eventName(): string {
+    let value = this.get("eventName");
+    return value.toString();
+  }
+
+  set eventName(value: string) {
+    this.set("eventName", Value.fromString(value));
   }
 
   get id(): string {
@@ -352,6 +415,15 @@ export class RequirementChangeEvent extends Entity {
     ) as RequirementChangeEvent | null;
   }
 
+  get eventName(): string {
+    let value = this.get("eventName");
+    return value.toString();
+  }
+
+  set eventName(value: string) {
+    this.set("eventName", Value.fromString(value));
+  }
+
   get id(): string {
     let value = this.get("id");
     return value.toString();
@@ -392,6 +464,15 @@ export class SubmissionEvent extends Entity {
     return store.get("SubmissionEvent", id) as SubmissionEvent | null;
   }
 
+  get eventName(): string {
+    let value = this.get("eventName");
+    return value.toString();
+  }
+
+  set eventName(value: string) {
+    this.set("eventName", Value.fromString(value));
+  }
+
   get id(): string {
     let value = this.get("id");
     return value.toString();
@@ -430,6 +511,15 @@ export class ReturnedEvent extends Entity {
 
   static load(id: string): ReturnedEvent | null {
     return store.get("ReturnedEvent", id) as ReturnedEvent | null;
+  }
+
+  get eventName(): string {
+    let value = this.get("eventName");
+    return value.toString();
+  }
+
+  set eventName(value: string) {
+    this.set("eventName", Value.fromString(value));
   }
 
   get id(): string {
@@ -479,6 +569,15 @@ export class MintedEvent extends Entity {
 
   static load(id: string): MintedEvent | null {
     return store.get("MintedEvent", id) as MintedEvent | null;
+  }
+
+  get eventName(): string {
+    let value = this.get("eventName");
+    return value.toString();
+  }
+
+  set eventName(value: string) {
+    this.set("eventName", Value.fromString(value));
   }
 
   get id(): string {
@@ -546,6 +645,15 @@ export class BurnedEvent extends Entity {
 
   static load(id: string): BurnedEvent | null {
     return store.get("BurnedEvent", id) as BurnedEvent | null;
+  }
+
+  get eventName(): string {
+    let value = this.get("eventName");
+    return value.toString();
+  }
+
+  set eventName(value: string) {
+    this.set("eventName", Value.fromString(value));
   }
 
   get id(): string {

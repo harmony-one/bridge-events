@@ -66,7 +66,7 @@ dataSources:
       eventHandlers:
         - event: Returned(indexed address,uint256)
           handler: handleReturnedDeposit
-      file: ./src/deposit.ts
+      file: ./src/harmony.ts
   - kind: ethereum/contract
     name: BUSDHmyManager
     network: mainnet
