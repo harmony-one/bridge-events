@@ -158,7 +158,7 @@ dataSources:
       eventHandlers:
         - event: Locked(indexed address,indexed address,uint256,address)
           handler: handleLock
-        - event: Unlocked(indexed address,uint256,address,bytes32)
+        - event: Unlocked(address,uint256,address,bytes32)
           handler: handleUnlock
       file: ./src/ethereum.ts
   - kind: ethereum/contract
@@ -181,15 +181,15 @@ dataSources:
       eventHandlers:
         - event: Locked(indexed address,indexed address,uint256,address)
           handler: handleLock
-        - event: Unlocked(indexed address,uint256,address,bytes32)
+        - event: Unlocked(address,uint256,address,bytes32)
           handler: handleUnlock
       file: ./src/ethereum.ts
   - kind: ethereum/contract
-    name: ERC721HmyManager
+    name: ERC721EthManager
     network: mainnet
     source:
       address: "{{erc721Manager}}"
-      abi: ERC721HmyManager
+      abi: ERC721EthManager
       startBlock: {{erc721StartBlock}}
     mapping:
       kind: ethereum/events
@@ -199,12 +199,12 @@ dataSources:
         - MintedEvent
         - BurnedEvent
       abis:
-        - name: ERC721HmyManager
-          file: ./abis/ERC721HmyManager.json
+        - name: ERC721EthManager
+          file: ./abis/ERC721EthManager.json
       eventHandlers:
         - event: Locked(indexed address,indexed address,uint256,address)
           handler: handleLock
-        - event: Unlocked(indexed address,uint256,address,bytes32)
+        - event: Unlocked(address,uint256,address,bytes32)
           handler: handleUnlock
       file: ./src/ethereum.ts
   {{/isHarmony}}
