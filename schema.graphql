@@ -1,0 +1,47 @@
+type ConfirmationEvent @entity {
+  id: ID!
+  sender: Bytes!
+  transactionId: BigInt!
+}
+
+type DepositEvent @entity {
+  id: ID!
+  sender: Bytes!
+  value: BigInt!
+}
+
+type RevocationEvent @entity {
+  id: ID!
+  sender: Bytes!
+  transactionId: BigInt!
+}
+
+type ExecutionEvent @entity {
+  id: ID!
+  transactionId: BigInt!
+}
+
+type ExecutionFailureEvent @entity {
+  id: ID!
+  transactionId: BigInt!
+}
+
+type OwnerAdditionEvent @entity {
+  id: ID!
+  owner: Bytes!
+}
+
+type OwnerRemovalEvent @entity {
+  id: ID!
+  owner: Bytes!
+}
+
+type RequirementChangeEvent @entity {
+  id: ID!
+  required: BigInt!
+}
+
+type SubmissionEvent @entity {
+  id: ID!
+  transactionId: BigInt!
+}

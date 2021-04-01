@@ -1,0 +1,48 @@
+specVersion: 0.0.2
+schema:
+  file: ./schema.graphql
+dataSources:
+  - kind: ethereum/contract
+    name: MultiSigWallet
+    network: mainnet
+    source:
+      address: "0x0c1310bbd93c6977fde20dc813cff8236ba1f0dd"
+      abi: MultiSigWallet
+      startBlock: 5336368
+    mapping:
+      kind: ethereum/events
+      apiVersion: 0.0.4
+      language: wasm/assemblyscript
+      entities:
+        - ConfirmationEvent
+        - DepositEvent
+        - ExecutionEvent
+        - ExecutionFailureEvent
+        - OwnerAdditionEvent
+        - OwnerRemovalEvent
+        - RequirementChangeEvent
+        - RevocationEvent
+        - SubmissionEvent
+      abis:
+        - name: MultiSigWallet
+          file: ./abis/MultiSigWallet.json
+      eventHandlers:
+        - event: Confirmation(indexed address,indexed uint256)
+          handler: handleConfirmation
+        - event: Deposit(indexed address,uint256)
+          handler: handleDeposit
+        - event: Revocation(indexed address,indexed uint256)
+          handler: handleRevocation
+        - event: Execution(indexed uint256)
+          handler: handleExecution
+        - event: ExecutionFailure(indexed uint256)
+          handler: handleExecutionFailure
+        - event: OwnerAddition(indexed address)
+          handler: handleOwnerAddition
+        - event: OwnerRemoval(indexed address)
+          handler: handleOwnerRemoval
+        - event: RequirementChange(uint256)
+          handler: handleRequirementChange
+        - event: Submission(indexed uint256)
+          handler: handleSubmission
+      file: ./src/multisig.ts
