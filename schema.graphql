@@ -10,6 +10,12 @@ type DepositEvent @entity {
   value: BigInt!
 }
 
+type ReturnedEvent @entity {
+  id: ID!
+  recipient: Bytes!
+  amount: BigInt!
+}
+
 type RevocationEvent @entity {
   id: ID!
   sender: Bytes!

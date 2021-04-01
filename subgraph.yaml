@@ -46,3 +46,23 @@ dataSources:
         - event: Submission(indexed uint256)
           handler: handleSubmission
       file: ./src/multisig.ts
+  - kind: ethereum/contract
+    name: Deposit
+    network: mainnet
+    source:
+      address: "0x8139d578f11638c78e16685eb2804c2a34482e41"
+      abi: Deposit
+      startBlock: 8967465
+    mapping:
+      kind: ethereum/events
+      apiVersion: 0.0.4
+      language: wasm/assemblyscript
+      entities:
+        - ReturnedEvent
+      abis:
+        - name: Deposit
+          file: ./abis/Deposit.json
+      eventHandlers:
+        - event: Returned(indexed address,uint256)
+          handler: handleReturnedDeposit
+      file: ./src/deposit.ts
