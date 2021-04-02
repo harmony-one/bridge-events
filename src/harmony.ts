@@ -1,5 +1,5 @@
-import { Minted, Burned } from "../generated/BUSDHmyManager/BUSDHmyManager";
-import { Returned } from "../generated/Deposit/Deposit";
+import { Minted, Burned } from "../generated/BUSDHmyManager-1/BUSDHmyManager";
+import { Returned } from "../generated/Deposit-1/Deposit";
 import { MintedEvent, BurnedEvent, ReturnedEvent } from "../generated/schema";
 
 export function handleMint(event: Minted): void {

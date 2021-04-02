@@ -10,7 +10,7 @@ import {
   RequirementChange,
   Revocation,
   Submission,
-} from "../generated/MultiSigWallet/MultiSigWallet";
+} from "../generated/MultiSigWallet-1/MultiSigWallet";
 
 import {
   ConfirmationEvent,

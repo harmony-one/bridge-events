@@ -1,4 +1,4 @@
-import { Locked, Unlocked } from "../generated/BUSDEthManager/BUSDEthManager";
+import { Locked, Unlocked } from "../generated/BUSDEthManager-1/BUSDEthManager";
 import { LockedEvent, UnlockedEvent } from "../generated/schema";
 
 export function handleUnlock(event: Unlocked): void {

@@ -2,13 +2,15 @@ specVersion: 0.0.2
 schema:
   file: ./schema.graphql
 dataSources:
+  # MULTI SIG EVENTS
+  {{#multiSigManagers}}
   - kind: ethereum/contract
-    name: MultiSigWallet
+    name: {{name}}
     network: mainnet
     source:
-      address: "{{multiSig}}"
-      abi: MultiSigWallet
-      startBlock: {{multiSigStartBlock}}
+      address: "{{contract}}"
+      abi: {{abi}}
+      startBlock: {{startBlock}}
     mapping:
       kind: ethereum/events
       apiVersion: 0.0.4
@@ -24,8 +26,8 @@ dataSources:
         - RevocationEvent
         - SubmissionEvent
       abis:
-        - name: MultiSigWallet
-          file: ./abis/MultiSigWallet.json
+        - name: {{abi}}
+          file: ./abis/{{abi}}.json
       eventHandlers:
         - event: Confirmation(indexed address,indexed uint256)
           handler: handleConfirmation
@@ -46,14 +48,17 @@ dataSources:
         - event: Submission(indexed uint256)
           handler: handleSubmission
       file: ./src/multisig.ts
-  {{#isHarmony}}
+  {{/multiSigManagers}}
+  
+  # DEPOSIT EVENTS
+  {{#depositManagers}}
   - kind: ethereum/contract
-    name: Deposit
+    name: {{name}}
     network: mainnet
     source:
-      address: "{{deposit}}"
-      abi: Deposit
-      startBlock: {{depositStartBlock}}
+      address: "{{contract}}"
+      abi: {{abi}}
+      startBlock: {{startBlock}}
     mapping:
       kind: ethereum/events
       apiVersion: 0.0.4
@@ -61,19 +66,23 @@ dataSources:
       entities:
         - ReturnedEvent
       abis:
-        - name: Deposit
-          file: ./abis/Deposit.json
+        - name: {{abi}}
+          file: ./abis/{{abi}}.json
       eventHandlers:
         - event: Returned(indexed address,uint256)
           handler: handleReturnedDeposit
       file: ./src/harmony.ts
+  {{/depositManagers}}
+
+  # MINT AND BURN EVENTS
+  {{#mintManagers}}
   - kind: ethereum/contract
-    name: BUSDHmyManager
+    name: {{name}}
     network: mainnet
     source:
-      address: "{{busdManager}}"
-      abi: BUSDHmyManager
-      startBlock: {{busdStartBlock}}
+      address: "{{contract}}"
+      abi: {{abi}}
+      startBlock: {{startBlock}}
     mapping:
       kind: ethereum/events
       apiVersion: 0.0.4
@@ -82,21 +91,25 @@ dataSources:
         - MintedEvent
         - BurnedEvent
       abis:
-        - name: BUSDHmyManager
-          file: ./abis/BUSDHmyManager.json
+        - name: {{abi}}
+          file: ./abis/{{abi}}.json
       eventHandlers:
         - event: Burned(indexed address,indexed address,uint256,address)
           handler: handleBurn
         - event: Minted(address,uint256,address,bytes32)
           handler: handleMint
       file: ./src/harmony.ts
+  {{/mintManagers}}
+
+  # LOCK AND UNLOCK EVENTS
+  {{#lockManagers}}
   - kind: ethereum/contract
-    name: ERC20HmyManager
+    name: {{name}}
     network: mainnet
     source:
-      address: "{{erc20Manager}}"
-      abi: ERC20HmyManager
-      startBlock: {{erc20StartBlock}}
+      address: "{{contract}}"
+      abi: {{abi}}
+      startBlock: {{startBlock}}
     mapping:
       kind: ethereum/events
       apiVersion: 0.0.4
@@ -105,106 +118,12 @@ dataSources:
         - MintedEvent
         - BurnedEvent
       abis:
-        - name: ERC20HmyManager
-          file: ./abis/ERC20HmyManager.json
-      eventHandlers:
-        - event: Burned(indexed address,indexed address,uint256,address)
-          handler: handleBurn
-        - event: Minted(address,uint256,address,bytes32)
-          handler: handleMint
-      file: ./src/harmony.ts
-  - kind: ethereum/contract
-    name: ERC721HmyManager
-    network: mainnet
-    source:
-      address: "{{erc721Manager}}"
-      abi: ERC721HmyManager
-      startBlock: {{erc721StartBlock}}
-    mapping:
-      kind: ethereum/events
-      apiVersion: 0.0.4
-      language: wasm/assemblyscript
-      entities:
-        - MintedEvent
-        - BurnedEvent
-      abis:
-        - name: ERC721HmyManager
-          file: ./abis/ERC721HmyManager.json
-      eventHandlers:
-        - event: Burned(indexed address,indexed address,uint256,address)
-          handler: handleBurn
-        - event: Minted(address,uint256,address,bytes32)
-          handler: handleMint
-      file: ./src/harmony.ts
-  {{/isHarmony}}
-  {{^isHarmony}}
-  - kind: ethereum/contract
-    name: BUSDEthManager
-    network: mainnet
-    source:
-      address: "{{busdManager}}"
-      abi: BUSDEthManager
-      startBlock: {{busdStartBlock}}
-    mapping:
-      kind: ethereum/events
-      apiVersion: 0.0.4
-      language: wasm/assemblyscript
-      entities:
-        - MintedEvent
-        - BurnedEvent
-      abis:
-        - name: BUSDEthManager
-          file: ./abis/BUSDEthManager.json
+        - name: {{abi}}
+          file: ./abis/{{abi}}.json
       eventHandlers:
         - event: Locked(indexed address,indexed address,uint256,address)
           handler: handleLock
         - event: Unlocked(address,uint256,address,bytes32)
           handler: handleUnlock
       file: ./src/ethereum.ts
-  - kind: ethereum/contract
-    name: ERC20EthManager
-    network: mainnet
-    source:
-      address: "{{erc20Manager}}"
-      abi: ERC20EthManager
-      startBlock: {{erc20StartBlock}}
-    mapping:
-      kind: ethereum/events
-      apiVersion: 0.0.4
-      language: wasm/assemblyscript
-      entities:
-        - MintedEvent
-        - BurnedEvent
-      abis:
-        - name: ERC20EthManager
-          file: ./abis/ERC20EthManager.json
-      eventHandlers:
-        - event: Locked(indexed address,indexed address,uint256,address)
-          handler: handleLock
-        - event: Unlocked(address,uint256,address,bytes32)
-          handler: handleUnlock
-      file: ./src/ethereum.ts
-  - kind: ethereum/contract
-    name: ERC721EthManager
-    network: mainnet
-    source:
-      address: "{{erc721Manager}}"
-      abi: ERC721EthManager
-      startBlock: {{erc721StartBlock}}
-    mapping:
-      kind: ethereum/events
-      apiVersion: 0.0.4
-      language: wasm/assemblyscript
-      entities:
-        - MintedEvent
-        - BurnedEvent
-      abis:
-        - name: ERC721EthManager
-          file: ./abis/ERC721EthManager.json
-      eventHandlers:
-        - event: Locked(indexed address,indexed address,uint256,address)
-          handler: handleLock
-        - event: Unlocked(address,uint256,address,bytes32)
-          handler: handleUnlock
-      file: ./src/ethereum.ts
-  {{/isHarmony}}
+  {{/lockManagers}}
