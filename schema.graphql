@@ -1,4 +1,4 @@
-type Transaction @entity {
+type EventTransaction @entity {
   id: ID!
   destination: Bytes!
   value: BigInt!
@@ -8,7 +8,7 @@ type Transaction @entity {
 
 ### MULTI SIG WALLET ####
 type ConfirmationEvent @entity {
-  transaction: Transaction
+  transaction: EventTransaction
   eventName: String!
   id: ID!
   sender: Bytes!
@@ -23,7 +23,7 @@ type DepositEvent @entity {
 }
 
 type RevocationEvent @entity {
-  transaction: Transaction
+  transaction: EventTransaction
   eventName: String!
   id: ID!
   sender: Bytes!
@@ -31,14 +31,14 @@ type RevocationEvent @entity {
 }
 
 type ExecutionEvent @entity {
-  transaction: Transaction!
+  transaction: EventTransaction!
   eventName: String!
   id: ID!
   transactionId: BigInt!
 }
 
 type ExecutionFailureEvent @entity {
-  transaction: Transaction
+  transaction: EventTransaction
   eventName: String!
   id: ID!
   transactionId: BigInt!
@@ -63,7 +63,7 @@ type RequirementChangeEvent @entity {
 }
 
 type SubmissionEvent @entity {
-  transaction: Transaction
+  transaction: EventTransaction
   eventName: String!
   id: ID!
   transactionId: BigInt!

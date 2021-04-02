@@ -22,16 +22,16 @@ import {
   OwnerRemovalEvent,
   RequirementChangeEvent,
   SubmissionEvent,
-  Transaction,
+  EventTransaction,
 } from "../generated/schema";
 
 function getTransaction(
   transactionId: BigInt,
   event: ethereum.Event
-): Transaction {
+): EventTransaction {
   let multiSigWallet = MultiSigWallet.bind(event.address);
   let transaction = multiSigWallet.try_transactions(transactionId);
-  let ts = new Transaction(transactionId.toString());
+  let ts = new EventTransaction(transactionId.toString());
   if (!transaction.reverted) {
     ts.destination = transaction.value.value0;
     ts.value = transaction.value.value1;
