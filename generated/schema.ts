@@ -42,48 +42,13 @@ export class Transaction extends Entity {
     this.set("id", Value.fromString(value));
   }
 
-  get hash(): Bytes {
-    let value = this.get("hash");
+  get destination(): Bytes {
+    let value = this.get("destination");
     return value.toBytes();
   }
 
-  set hash(value: Bytes) {
-    this.set("hash", Value.fromBytes(value));
-  }
-
-  get index(): BigInt {
-    let value = this.get("index");
-    return value.toBigInt();
-  }
-
-  set index(value: BigInt) {
-    this.set("index", Value.fromBigInt(value));
-  }
-
-  get from(): Bytes {
-    let value = this.get("from");
-    return value.toBytes();
-  }
-
-  set from(value: Bytes) {
-    this.set("from", Value.fromBytes(value));
-  }
-
-  get to(): Bytes | null {
-    let value = this.get("to");
-    if (value === null || value.kind == ValueKind.NULL) {
-      return null;
-    } else {
-      return value.toBytes();
-    }
-  }
-
-  set to(value: Bytes | null) {
-    if (value === null) {
-      this.unset("to");
-    } else {
-      this.set("to", Value.fromBytes(value as Bytes));
-    }
+  set destination(value: Bytes) {
+    this.set("destination", Value.fromBytes(value));
   }
 
   get value(): BigInt {
@@ -95,31 +60,22 @@ export class Transaction extends Entity {
     this.set("value", Value.fromBigInt(value));
   }
 
-  get gasUsed(): BigInt {
-    let value = this.get("gasUsed");
-    return value.toBigInt();
-  }
-
-  set gasUsed(value: BigInt) {
-    this.set("gasUsed", Value.fromBigInt(value));
-  }
-
-  get gasPrice(): BigInt {
-    let value = this.get("gasPrice");
-    return value.toBigInt();
-  }
-
-  set gasPrice(value: BigInt) {
-    this.set("gasPrice", Value.fromBigInt(value));
-  }
-
-  get input(): Bytes {
-    let value = this.get("input");
+  get data(): Bytes {
+    let value = this.get("data");
     return value.toBytes();
   }
 
-  set input(value: Bytes) {
-    this.set("input", Value.fromBytes(value));
+  set data(value: Bytes) {
+    this.set("data", Value.fromBytes(value));
+  }
+
+  get executed(): boolean {
+    let value = this.get("executed");
+    return value.toBoolean();
+  }
+
+  set executed(value: boolean) {
+    this.set("executed", Value.fromBoolean(value));
   }
 }
 
@@ -217,23 +173,6 @@ export class DepositEvent extends Entity {
 
   static load(id: string): DepositEvent | null {
     return store.get("DepositEvent", id) as DepositEvent | null;
-  }
-
-  get transaction(): string | null {
-    let value = this.get("transaction");
-    if (value === null || value.kind == ValueKind.NULL) {
-      return null;
-    } else {
-      return value.toString();
-    }
-  }
-
-  set transaction(value: string | null) {
-    if (value === null) {
-      this.unset("transaction");
-    } else {
-      this.set("transaction", Value.fromString(value as string));
-    }
   }
 
   get eventName(): string {
@@ -369,21 +308,13 @@ export class ExecutionEvent extends Entity {
     return store.get("ExecutionEvent", id) as ExecutionEvent | null;
   }
 
-  get transaction(): string | null {
+  get transaction(): string {
     let value = this.get("transaction");
-    if (value === null || value.kind == ValueKind.NULL) {
-      return null;
-    } else {
-      return value.toString();
-    }
+    return value.toString();
   }
 
-  set transaction(value: string | null) {
-    if (value === null) {
-      this.unset("transaction");
-    } else {
-      this.set("transaction", Value.fromString(value as string));
-    }
+  set transaction(value: string) {
+    this.set("transaction", Value.fromString(value));
   }
 
   get eventName(): string {
@@ -507,23 +438,6 @@ export class OwnerAdditionEvent extends Entity {
     return store.get("OwnerAdditionEvent", id) as OwnerAdditionEvent | null;
   }
 
-  get transaction(): string | null {
-    let value = this.get("transaction");
-    if (value === null || value.kind == ValueKind.NULL) {
-      return null;
-    } else {
-      return value.toString();
-    }
-  }
-
-  set transaction(value: string | null) {
-    if (value === null) {
-      this.unset("transaction");
-    } else {
-      this.set("transaction", Value.fromString(value as string));
-    }
-  }
-
   get eventName(): string {
     let value = this.get("eventName");
     return value.toString();
@@ -571,23 +485,6 @@ export class OwnerRemovalEvent extends Entity {
 
   static load(id: string): OwnerRemovalEvent | null {
     return store.get("OwnerRemovalEvent", id) as OwnerRemovalEvent | null;
-  }
-
-  get transaction(): string | null {
-    let value = this.get("transaction");
-    if (value === null || value.kind == ValueKind.NULL) {
-      return null;
-    } else {
-      return value.toString();
-    }
-  }
-
-  set transaction(value: string | null) {
-    if (value === null) {
-      this.unset("transaction");
-    } else {
-      this.set("transaction", Value.fromString(value as string));
-    }
   }
 
   get eventName(): string {
@@ -643,23 +540,6 @@ export class RequirementChangeEvent extends Entity {
       "RequirementChangeEvent",
       id
     ) as RequirementChangeEvent | null;
-  }
-
-  get transaction(): string | null {
-    let value = this.get("transaction");
-    if (value === null || value.kind == ValueKind.NULL) {
-      return null;
-    } else {
-      return value.toString();
-    }
-  }
-
-  set transaction(value: string | null) {
-    if (value === null) {
-      this.unset("transaction");
-    } else {
-      this.set("transaction", Value.fromString(value as string));
-    }
   }
 
   get eventName(): string {

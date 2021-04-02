@@ -1,8 +1,10 @@
+import { ethereum, BigInt } from "@graphprotocol/graph-ts";
 import {
   Confirmation,
   Deposit,
   Execution,
   ExecutionFailure,
+  MultiSigWallet,
   OwnerAddition,
   OwnerRemoval,
   RequirementChange,
@@ -20,13 +22,33 @@ import {
   OwnerRemovalEvent,
   RequirementChangeEvent,
   SubmissionEvent,
+  Transaction,
 } from "../generated/schema";
+
+function getTransaction(
+  transactionId: BigInt,
+  event: ethereum.Event
+): Transaction {
+  let multiSigWallet = MultiSigWallet.bind(event.address);
+  let transaction = multiSigWallet.try_transactions(transactionId);
+  let ts = new Transaction(transactionId.toString());
+  if (!transaction.reverted) {
+    ts.destination = transaction.value.value0;
+    ts.value = transaction.value.value1;
+    ts.data = transaction.value.value2;
+    ts.executed = transaction.value.value3;
+  }
+  ts.save();
+  return ts;
+}
 
 export function handleConfirmation(event: Confirmation): void {
   let id = event.transaction.from.toHex();
   let confirmEvent = new ConfirmationEvent(id);
   confirmEvent.sender = event.params.sender;
   confirmEvent.transactionId = event.params.transactionId;
+  let transaction = getTransaction(event.params.transactionId, event);
+  confirmEvent.transaction = transaction.id;
   confirmEvent.eventName = "Confirmation";
   confirmEvent.save();
 }
@@ -44,6 +66,8 @@ export function handleExecution(event: Execution): void {
   let id = event.transaction.from.toHex();
   let execEvent = new ExecutionEvent(id);
   execEvent.transactionId = event.params.transactionId;
+  let transaction = getTransaction(event.params.transactionId, event);
+  execEvent.transaction = transaction.id;
   execEvent.eventName = "Execution";
   execEvent.save();
 }
@@ -52,6 +76,8 @@ export function handleExecutionFailure(event: ExecutionFailure): void {
   let id = event.transaction.from.toHex();
   let execFailEvent = new ExecutionFailureEvent(id);
   execFailEvent.transactionId = event.params.transactionId;
+  let transaction = getTransaction(event.params.transactionId, event);
+  execFailEvent.transaction = transaction.id;
   execFailEvent.eventName = "ExecutionFailure";
   execFailEvent.save();
 }
@@ -85,6 +111,8 @@ export function handleRevocation(event: Revocation): void {
   let revocEvent = new RevocationEvent(id);
   revocEvent.sender = event.params.sender;
   revocEvent.transactionId = event.params.transactionId;
+  let transaction = getTransaction(event.params.transactionId, event);
+  revocEvent.transaction = transaction.id;
   revocEvent.eventName = "Revocation";
   revocEvent.save();
 }
@@ -93,6 +121,8 @@ export function handleSubmission(event: Submission): void {
   let id = event.transaction.from.toHex();
   let submiEvent = new SubmissionEvent(id);
   submiEvent.transactionId = event.params.transactionId;
+  let transaction = getTransaction(event.params.transactionId, event);
+  submiEvent.transaction = transaction.id;
   submiEvent.eventName = "Submission";
   submiEvent.save();
 }
