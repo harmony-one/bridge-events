@@ -50,6 +50,7 @@ export function handleConfirmation(event: Confirmation): void {
   let transaction = getTransaction(event.params.transactionId, event);
   confirmEvent.transaction = transaction.id;
   confirmEvent.eventName = "Confirmation";
+  confirmEvent.contractAddress = event.address;
   confirmEvent.save();
 }
 
@@ -59,6 +60,7 @@ export function handleDeposit(event: Deposit): void {
   depEvent.sender = event.params.sender;
   depEvent.value = event.params.value;
   depEvent.eventName = "Deposit";
+  depEvent.contractAddress = event.address;
   depEvent.save();
 }
 
@@ -69,6 +71,7 @@ export function handleExecution(event: Execution): void {
   let transaction = getTransaction(event.params.transactionId, event);
   execEvent.transaction = transaction.id;
   execEvent.eventName = "Execution";
+  execEvent.contractAddress = event.address;
   execEvent.save();
 }
 
@@ -79,6 +82,7 @@ export function handleExecutionFailure(event: ExecutionFailure): void {
   let transaction = getTransaction(event.params.transactionId, event);
   execFailEvent.transaction = transaction.id;
   execFailEvent.eventName = "ExecutionFailure";
+  execFailEvent.contractAddress = event.address;
   execFailEvent.save();
 }
 
@@ -87,6 +91,7 @@ export function handleOwnerAddition(event: OwnerAddition): void {
   let ownEvent = new OwnerAdditionEvent(id);
   ownEvent.owner = event.params.owner;
   ownEvent.eventName = "OwnerAddition";
+  ownEvent.contractAddress = event.address;
   ownEvent.save();
 }
 
@@ -95,6 +100,7 @@ export function handleOwnerRemoval(event: OwnerRemoval): void {
   let ownRemEvent = new OwnerRemovalEvent(id);
   ownRemEvent.owner = event.params.owner;
   ownRemEvent.eventName = "OwnerRemoval";
+  ownRemEvent.contractAddress = event.address;
   ownRemEvent.save();
 }
 
@@ -103,6 +109,7 @@ export function handleRequirementChange(event: RequirementChange): void {
   let reqChangeEvent = new RequirementChangeEvent(id);
   reqChangeEvent.required = event.params.required;
   reqChangeEvent.eventName = "RequirementChange";
+  reqChangeEvent.contractAddress = event.address;
   reqChangeEvent.save();
 }
 
@@ -114,6 +121,7 @@ export function handleRevocation(event: Revocation): void {
   let transaction = getTransaction(event.params.transactionId, event);
   revocEvent.transaction = transaction.id;
   revocEvent.eventName = "Revocation";
+  revocEvent.contractAddress = event.address;
   revocEvent.save();
 }
 
@@ -124,5 +132,6 @@ export function handleSubmission(event: Submission): void {
   let transaction = getTransaction(event.params.transactionId, event);
   submiEvent.transaction = transaction.id;
   submiEvent.eventName = "Submission";
+  submiEvent.contractAddress = event.address;
   submiEvent.save();
 }

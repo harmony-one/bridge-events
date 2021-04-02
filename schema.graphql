@@ -8,6 +8,7 @@ type EventTransaction @entity {
 
 ### MULTI SIG WALLET ####
 type ConfirmationEvent @entity {
+  contractAddress: Bytes!
   transaction: EventTransaction
   eventName: String!
   id: ID!
@@ -16,6 +17,7 @@ type ConfirmationEvent @entity {
 }
 
 type DepositEvent @entity {
+  contractAddress: Bytes!
   eventName: String!
   id: ID!
   sender: Bytes!
@@ -23,6 +25,7 @@ type DepositEvent @entity {
 }
 
 type RevocationEvent @entity {
+  contractAddress: Bytes!
   transaction: EventTransaction
   eventName: String!
   id: ID!
@@ -31,6 +34,7 @@ type RevocationEvent @entity {
 }
 
 type ExecutionEvent @entity {
+  contractAddress: Bytes!
   transaction: EventTransaction!
   eventName: String!
   id: ID!
@@ -38,6 +42,7 @@ type ExecutionEvent @entity {
 }
 
 type ExecutionFailureEvent @entity {
+  contractAddress: Bytes!
   transaction: EventTransaction
   eventName: String!
   id: ID!
@@ -45,24 +50,28 @@ type ExecutionFailureEvent @entity {
 }
 
 type OwnerAdditionEvent @entity {
+  contractAddress: Bytes!
   eventName: String!
   id: ID!
   owner: Bytes!
 }
 
 type OwnerRemovalEvent @entity {
+  contractAddress: Bytes!
   eventName: String!
   id: ID!
   owner: Bytes!
 }
 
 type RequirementChangeEvent @entity {
+  contractAddress: Bytes!
   eventName: String!
   id: ID!
   required: BigInt!
 }
 
 type SubmissionEvent @entity {
+  contractAddress: Bytes!
   transaction: EventTransaction
   eventName: String!
   id: ID!
@@ -71,6 +80,7 @@ type SubmissionEvent @entity {
 
 #### DEPOSIT ######
 type ReturnedEvent @entity {
+  contractAddress: Bytes!
   eventName: String!
   id: ID!
   recipient: Bytes!
@@ -79,6 +89,7 @@ type ReturnedEvent @entity {
 
 #### Harmony ####
 type MintedEvent @entity {
+  contractAddress: Bytes!
   eventName: String!
   id: ID!
   amount: BigInt!
@@ -88,6 +99,7 @@ type MintedEvent @entity {
 }
 
 type BurnedEvent @entity {
+  contractAddress: Bytes!
   eventName: String!
   id: ID!
   token: Bytes!
@@ -98,6 +110,7 @@ type BurnedEvent @entity {
 
 #### Ethereum ####
 type LockedEvent @entity {
+  contractAddress: Bytes!
   eventName: String!
   id: ID!
   token: Bytes!
@@ -107,6 +120,7 @@ type LockedEvent @entity {
 }
 
 type UnlockedEvent @entity {
+  contractAddress: Bytes!
   eventName: String!
   id: ID!
   amount: BigInt!

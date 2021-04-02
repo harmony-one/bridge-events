@@ -10,6 +10,7 @@ export function handleMint(event: Minted): void {
   mintEvent.recipient = event.params.recipient;
   mintEvent.receiptId = event.params.receiptId;
   mintEvent.eventName = "Minted";
+  mintEvent.contractAddress = event.address;
   mintEvent.save();
 }
 
@@ -21,6 +22,7 @@ export function handleBurn(event: Burned): void {
   burnEvent.amount = event.params.amount;
   burnEvent.recipient = event.params.recipient;
   burnEvent.eventName = "Burned";
+  burnEvent.contractAddress = event.address;
   burnEvent.save();
 }
 

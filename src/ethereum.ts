@@ -3,22 +3,24 @@ import { LockedEvent, UnlockedEvent } from "../generated/schema";
 
 export function handleUnlock(event: Unlocked): void {
   let id = event.transaction.from.toHex();
-  let mintEvent = new UnlockedEvent(id);
-  mintEvent.ethToken = event.params.ethToken;
-  mintEvent.amount = event.params.amount;
-  mintEvent.recipient = event.params.recipient;
-  mintEvent.receiptId = event.params.receiptId;
-  mintEvent.eventName = "Unlocked";
-  mintEvent.save();
+  let unlockEvent = new UnlockedEvent(id);
+  unlockEvent.ethToken = event.params.ethToken;
+  unlockEvent.amount = event.params.amount;
+  unlockEvent.recipient = event.params.recipient;
+  unlockEvent.receiptId = event.params.receiptId;
+  unlockEvent.eventName = "Unlocked";
+  unlockEvent.contractAddress = event.address;
+  unlockEvent.save();
 }
 
 export function handleLock(event: Locked): void {
   let id = event.transaction.from.toHex();
-  let burnEvent = new LockedEvent(id);
-  burnEvent.token = event.params.token;
-  burnEvent.sender = event.params.sender;
-  burnEvent.amount = event.params.amount;
-  burnEvent.recipient = event.params.recipient;
-  burnEvent.eventName = "Locked";
-  burnEvent.save();
+  let lockEvent = new LockedEvent(id);
+  lockEvent.token = event.params.token;
+  lockEvent.sender = event.params.sender;
+  lockEvent.amount = event.params.amount;
+  lockEvent.recipient = event.params.recipient;
+  lockEvent.eventName = "Locked";
+  lockEvent.contractAddress = event.address;
+  lockEvent.save();
 }
